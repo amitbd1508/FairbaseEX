@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "275494924358",
+    "firebase_url": "https://labproject-1178a.firebaseio.com",
+    "project_id": "labproject-1178a",
+    "storage_bucket": "labproject-1178a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275494924358:android:b95df4ff5fa6ba80",
+        "android_client_info": {
+          "package_name": "com.blackflag.fairbaseex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275494924358-6acig9l8fpnn4vhqu9e991k2i3pekun8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAytkIcYHeH1L3dbmIwZRBShg13vHfOH9Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
