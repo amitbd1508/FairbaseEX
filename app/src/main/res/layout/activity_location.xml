@@ -11,7 +11,7 @@
         android:text="Lat"/>
 
     <EditText
-        android:id="@+id/studentNameET"
+        android:id="@+id/etLat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -21,24 +21,30 @@
         android:text="Lon"/>
 
     <EditText
-        android:id="@+id/cgpaET"
+        android:id="@+id/etLon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/addStudentBtn"
+        android:id="@+id/addLocation"
         android:text="Add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/getUserListBtn"
+        android:id="@+id/getLocation"
         android:text="Get  List"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/showInMap"
+        android:text="Show In Map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
     <TextView
-        android:id="@+id/studentListTV"
+        android:id="@+id/locationList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

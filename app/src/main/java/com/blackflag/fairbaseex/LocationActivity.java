@@ -1,6 +1,6 @@
 package com.blackflag.fairbaseex;
 
-import android.renderscript.Double2;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,23 +18,23 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LocationActivity extends AppCompatActivity {
 
-    private Button getUserListBtn;
+    private Button getLocationList;
     private FirebaseAuth auth;
 
-    private EditText studentNameET,cgpa;
-    private TextView studentListTV;
-    private Button addStudentBtn;
+    private EditText etLat, etLon;
+    private TextView tvLocation;
+    private Button addLocation;
     FirebaseDatabase db;
     DatabaseReference ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-        studentNameET = (EditText) findViewById(R.id.studentNameET);
-        cgpa = (EditText) findViewById(R.id.cgpaET);
-        studentListTV = (TextView) findViewById(R.id.studentListTV);
-        addStudentBtn = (Button) findViewById(R.id.addStudentBtn);
-        getUserListBtn = (Button) findViewById(R.id.getUserListBtn);
+        etLat = (EditText) findViewById(R.id.etLat);
+        etLon = (EditText) findViewById(R.id.etLon);
+        tvLocation = (TextView) findViewById(R.id.locationList);
+        addLocation = (Button) findViewById(R.id.addLocation);
+        getLocationList = (Button) findViewById(R.id.getLocation);
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
@@ -42,16 +42,16 @@ public class LocationActivity extends AppCompatActivity {
 
 
 
-        addStudentBtn.setOnClickListener(new View.OnClickListener() {
+        addLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String lat = studentNameET.getText().toString();
-                String lon = cgpa.getText().toString();
+                String lat = etLat.getText().toString();
+                String lon = etLon.getText().toString();
                 ref.push().setValue(new Location(Double.parseDouble(lat), Double.parseDouble(lon)));
             }
         });
 
-        getUserListBtn.setOnClickListener(new View.OnClickListener() {
+        getLocationList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*ref.addValueEventListener(new ValueEventListener() {
@@ -72,10 +72,10 @@ public class LocationActivity extends AppCompatActivity {
                         Log.d("location", dataSnapshot.getValue().toString());
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             Location location = child.getValue(Location.class);
-                            String temp = studentListTV.getText().toString();
-                            if(location.getLon()==90.000)
-                                child.getRef().setValue(new Location(33.0000,44.0000));
-                            studentListTV.setText(temp + "\n" + location.getLat() + " " + location.getLon());
+                            String temp = tvLocation.getText().toString();
+//                            if(location.getLon()==90.000)
+//                                child.getRef().setValue(new Location(33.0000,44.0000));  /update code
+                            tvLocation.setText(temp + "\n" + location.getLat() + " " + location.getLon());
 
                         }
                     }
@@ -85,6 +85,13 @@ public class LocationActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+
+        findViewById(R.id.showInMap).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MapsActivity.class));
             }
         });
 
