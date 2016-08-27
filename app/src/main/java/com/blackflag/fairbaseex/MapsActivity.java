@@ -1,10 +1,14 @@
 package com.blackflag.fairbaseex;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -52,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("loaction");
+        ref = db.getReference("location");
     }
 
 
@@ -79,16 +83,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("location", dataSnapshot.getValue().toString());
-                Integer i=1;
+
+                Integer count=1;
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Location location = child.getValue(Location.class);
-                    locations.add(location);
-                    LatLng latLng = new LatLng(location.getLat(), location.getLon());
-                    mMap.addMarker(new MarkerOptions().position(latLng).title(i.toString()));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    i++;
-
+                    LatLng sydney = new LatLng(location.getLat(), location.getLon());
+                    mMap.addMarker(new MarkerOptions().position(sydney).title(count.toString()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                    count++;
 
                 }
             }
@@ -98,6 +100,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Integer i=1;
+//                for (DataSnapshot child : dataSnapshot.getChildren()) {
+//                    Location location = child.getValue(Location.class);
+//                    Toast.makeText(MapsActivity.this, location.getLat().toString()+location.getLon().toString(), Toast.LENGTH_SHORT).show();
+//                    locations.add(location);
+//                    LatLng latLng = new LatLng(location.getLat(), location.getLon());
+//                    mMap.addMarker(new MarkerOptions().position(latLng).title(i.toString()));
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                    i++;
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
     }
 
@@ -115,6 +139,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+       /* android.location.Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        mMap.addMarker(new MarkerOptions().position().title("kj"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom());*/
 
     }
 
